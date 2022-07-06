@@ -1,0 +1,26 @@
+.card-item {
+  width: 320px;
+  background-color: #fff;
+  padding: 15px;
+  box-shadow: 0 0 10px 3px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.card-item:hover {
+  transform: scale(1.01);
+}
+.card-item span {
+  font-weight: 800;
+}
+
+.card-img {
+  height: 180px;
+  width: 140px;
+}
+
+.card-btn {
+  position: relative;
+  bottom: -65px;
+  right: -40px;
+}

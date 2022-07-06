@@ -1,0 +1,14 @@
+.product-count {
+  color: red;
+  font-weight: 800;
+  position: absolute;
+  top: 1px;
+  left: 38px;
+  z-index: 1;
+  background: blue;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  vertical-align: middle;
+}/*# sourceMappingURL=style.css.map */
