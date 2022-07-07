@@ -9,18 +9,29 @@ const productsSlice = createSlice({
   initialState: {
     products: [],
     fetchingStatus: "",
+    newProducts: [],
+    isFiltered: false,
   },
-  reducers: {},
+  reducers: {
+    filterProducts: (state, { payload }) => {
+      state.newProducts = state.products.filter((item) =>
+        item.title.toLowerCase().includes(payload.toLowerCase())
+      );
+      state.isFiltered = true;
+    },
+  },
   extraReducers: {
     [getProducts.pending]: (state, action) => {
       state.fetchingStatus = "loading";
     },
     [getProducts.fulfilled]: (state, { payload }) => {
       state.products = payload;
+      state.newProducts = payload;
       state.fetchingStatus = "loaded";
     },
     [getProducts.rejected]: (state, action) => {},
   },
 });
 
+export const { filterProducts } = productsSlice.actions;
 export default productsSlice.reducer;

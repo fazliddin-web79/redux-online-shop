@@ -1,19 +1,26 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Outlet, NavLink } from "react-router-dom";
 import basket from "../../Assets/Icons/basket.png";
 import "./style.css";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { filterProducts } from "../../Redux/Products";
 
 const Navbar = () => {
   const productsLength = useSelector((store) => store.users);
+  const searchRef = useRef();
+  const dispatch = useDispatch();
   return (
-    <div>
+    <>
       <nav className="navbar navbar-expand-lg navbar-lght bg-light">
         <div className="ms-lg container-fluid">
           <NavLink className="navbar-brand text-dark" to="/">
             Online shop
           </NavLink>
-          <NavLink className="nav-link ms-lg" to="#" aria-disabled="true">
+          <NavLink
+            className="nav-link ms-lg"
+            to="/my-products"
+            aria-disabled="true"
+          >
             <div
               style={{ height: "30px", width: "35px", marginRight: "25px" }}
               className="position-relative"
@@ -24,11 +31,7 @@ const Navbar = () => {
               </span>
             </div>
           </NavLink>
-          <NavLink to={"/signup"}>
-            <button className="btn btn-outline-success btn-info" type="submit">
-              Sign Up
-            </button>
-          </NavLink>
+
           <button
             className="navbar-toggler border"
             type="button"
@@ -52,6 +55,16 @@ const Navbar = () => {
                   Products
                 </NavLink>
               </li>
+              <li className="nav-item">
+                <NavLink to={"/signup"} className="nav-link">
+                  Sign Up
+                </NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink to={"/login"} className="nav-link">
+                  Log IN
+                </NavLink>
+              </li>
             </ul>
             <div className="d-flex">
               <input
@@ -59,8 +72,15 @@ const Navbar = () => {
                 type="search"
                 placeholder="Search here someything . . . "
                 aria-label="Search"
+                ref={searchRef}
               />
-              <button className="btn btn-outline-success" type="submit">
+              <button
+                className="btn btn-outline-success"
+                type="submit"
+                onClick={() =>
+                  dispatch(filterProducts(searchRef.current.value))
+                }
+              >
                 Search
               </button>
             </div>
@@ -68,7 +88,7 @@ const Navbar = () => {
         </div>
       </nav>
       <Outlet />
-    </div>
+    </>
   );
 };
 

@@ -3,6 +3,7 @@ import Products from "../Components/Products";
 import SignIn from "../Components/SignIn";
 import SignUp from "../Components/SignUp";
 import Generic from "../Generic";
+import MyProducts from "../Pages/MyProducts";
 
 export const navbar = [
   {
@@ -29,5 +30,10 @@ export const navbar = [
     id: 5,
     path: "/about-me",
     element: <Generic />,
+  },
+  {
+    id: 6,
+    path: "/my-products",
+    element: <MyProducts />,
   },
 ];

@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { Container, Control, Wrapper } from "./style";
 import { useDispatch } from "react-redux";
 import { addProduct } from "../../Redux/User";
@@ -9,6 +9,7 @@ export const ShowProduct = () => {
   const [product, setProduct] = useState("");
   const dispatch = useDispatch();
   const params = useParams();
+  const navigate = useNavigate();
   useEffect(() => {
     axios.get(`https://fakestoreapi.com/products/${params.id}`).then((res) => {
       setProduct(res.data);
@@ -21,7 +22,7 @@ export const ShowProduct = () => {
   return (
     <Container>
       <Control>
-        <Control.Back>Back ...</Control.Back>
+        <Control.Back onClick={() => navigate(-1)}>Back ...</Control.Back>
       </Control>
       {!product ? (
         <Container.Loader> Loading . . .</Container.Loader>
