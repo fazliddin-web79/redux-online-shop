@@ -1,13 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { addUser, getUser } from "../../Redux/User";
+import { addUser } from "../../Redux/User";
 
 const SignUp = () => {
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getUser());
-  }, [dispatch]);
 
   const [userInfo, setUserInfo] = useState({
     username: "",

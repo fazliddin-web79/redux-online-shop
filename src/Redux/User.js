@@ -1,21 +1,18 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-
-export const getUser = createAsyncThunk("getUser", async () => {
-  return fetch("https://fakestoreapi.com/users").then((res) => res.json());
-});
+import { createSlice } from "@reduxjs/toolkit";
+import { users } from "../Mock/user";
 
 const userSlice = createSlice({
   name: "user",
   initialState: {
-    users: [],
+    users: users,
     realUser: {
       products: [],
+      total: 0,
     },
     isSign: false,
   },
   reducers: {
     addUser: (state, { payload }) => {
-      getUser();
       state.users = [
         ...state.users,
         { ...payload, id: state.users.length + 1 },
@@ -30,16 +27,30 @@ const userSlice = createSlice({
       state.realUser.products = [...state.realUser.products, payload];
       console.log(state.realUser.products);
     },
-  },
-  extraReducers: {
-    [getUser.pending]: (state, action) => {},
-    [getUser.fulfilled]: (state, action) => {
-      state.users = action.payload;
+    removeOne: (state, { payload }) => {
+      state.realUser.products.splice(payload, 1);
     },
-    [getUser.rejected]: (state, action) => {},
+    totalSumm: (state, action) => {
+      let total = 0;
+      state.realUser.products.forEach((item) => {
+        total += item.price;
+      });
+      state.realUser.total = total;
+    },
+    removeAll: (state) => {
+      state.realUser.products = [];
+      state.realUser.total = 0;
+    },
   },
 });
 
-export const { findUser, addUser, addProduct } = userSlice.actions;
+export const {
+  findUser,
+  addUser,
+  addProduct,
+  totalSumm,
+  removeAll,
+  removeOne,
+} = userSlice.actions;
 
 export default userSlice.reducer;
