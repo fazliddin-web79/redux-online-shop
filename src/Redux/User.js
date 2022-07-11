@@ -5,6 +5,7 @@ const userSlice = createSlice({
   name: "user",
   initialState: {
     users: users,
+    addingUser: null,
     realUser: {
       products: [],
       total: 0,
@@ -13,16 +14,26 @@ const userSlice = createSlice({
   },
   reducers: {
     addUser: (state, { payload }) => {
-      state.users = [
-        ...state.users,
-        { ...payload, id: state.users.length + 1 },
-      ];
-      console.log(state.users, "STATE add user");
-      console.log(payload, "payload");
+      if (
+        state.users
+          .filter((item) => item.username === payload.username)
+          .filter((item) => item.password === payload.password).length === 0
+      ) {
+        state.addingUser = true;
+        console.log(state.users.length);
+      } else {
+        console.log(state.users.length);
+        state.addingUser = false;
+      }
+      if (state.addingUser) {
+        state.users = [
+          ...state.users,
+          { ...payload, id: state.users.length + 1 },
+        ];
+      }
     },
-    findUser: (state, { payload }) => {
-      console.log(payload, "finduser");
-    },
+
+    findUser: (state, { payload }) => {},
     addProduct: (state, { payload }) => {
       state.realUser.products = [...state.realUser.products, payload];
       console.log(state.realUser.products);

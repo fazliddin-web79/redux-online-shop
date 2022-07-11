@@ -1,6 +1,6 @@
 import Home from "../Components/Home";
 import Products from "../Components/Products";
-import SignIn from "../Components/SignIn";
+import SignIn from "../Pages/SignIn";
 import SignUp from "../Components/SignUp";
 import Generic from "../Generic";
 import MyProducts from "../Pages/MyProducts";
