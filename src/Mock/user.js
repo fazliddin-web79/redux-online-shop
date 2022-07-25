@@ -9,9 +9,9 @@ export const users = [
     email: "john@gmail.com",
     id: 1,
     name: { firstname: "john", lastname: "doe" },
-    password: "m38rmF$",
+    password: "1212",
     phone: "1-570-236-7033",
-    username: "johnd",
+    username: "asas",
   },
   {
     address: {

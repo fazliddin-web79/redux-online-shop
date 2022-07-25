@@ -7,6 +7,7 @@ const userSlice = createSlice({
     users: users,
     addingUser: null,
     realUser: {
+      userInfo: {},
       products: [],
       total: 0,
     },
@@ -20,23 +21,42 @@ const userSlice = createSlice({
           .filter((item) => item.password === payload.password).length === 0
       ) {
         state.addingUser = true;
-        console.log(state.users.length);
       } else {
-        console.log(state.users.length);
         state.addingUser = false;
       }
       if (state.addingUser) {
         state.users = [
           ...state.users,
-          { ...payload, id: state.users.length + 1 },
+          {
+            ...payload,
+            id: state.users.length + 1,
+            address: {
+              city: "",
+              street: "",
+              number: "",
+              zipcode: "",
+            },
+            name: { firstname: "", lastname: "" },
+          },
         ];
       }
     },
 
-    findUser: (state, { payload }) => {},
+    findUser: (state, { payload }) => {
+      const { username, password } = payload;
+      const newUser = state.users.find(
+        (item) => item.username === username && item.password === password
+      );
+
+      if (newUser) {
+        state.realUser.userInfo = newUser;
+        state.isSign = true;
+      }
+    },
     addProduct: (state, { payload }) => {
-      state.realUser.products = [...state.realUser.products, payload];
-      console.log(state.realUser.products);
+      if (state.isSign) {
+        state.realUser.products = [...state.realUser.products, payload];
+      } else alert("please, sign-in after buy product");
     },
     removeOne: (state, { payload }) => {
       state.realUser.products.splice(payload, 1);

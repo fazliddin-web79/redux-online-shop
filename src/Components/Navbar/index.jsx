@@ -7,6 +7,7 @@ import { filterProducts } from "../../Redux/Products";
 
 const Navbar = () => {
   const productsLength = useSelector((store) => store.users);
+  const isSign = productsLength.isSign;
   const searchRef = useRef();
   const dispatch = useDispatch();
   return (
@@ -55,16 +56,26 @@ const Navbar = () => {
                   Products
                 </NavLink>
               </li>
-              <li className="nav-item">
-                <NavLink to={"/signup"} className="nav-link">
-                  Sign Up
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink to={"/login"} className="nav-link">
-                  Log IN
-                </NavLink>
-              </li>
+              {!isSign ? (
+                <>
+                  <li className="nav-item">
+                    <NavLink to={"/signup"} className="nav-link">
+                      Sign Up
+                    </NavLink>
+                  </li>
+                  <li className="nav-item">
+                    <NavLink to={"/login"} className="nav-link">
+                      Log IN
+                    </NavLink>
+                  </li>
+                </>
+              ) : (
+                <li className="nav-item">
+                  <NavLink to={"/user-settings"} className="nav-link">
+                    User Settings
+                  </NavLink>
+                </li>
+              )}
             </ul>
             <div className="d-flex">
               <input

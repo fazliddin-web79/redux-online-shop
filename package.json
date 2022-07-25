@@ -1,6 +1,7 @@
 {
   "name": "redux-online-store",
   "version": "0.1.0",
+  "author": "Fazliddin Yajubjonov",
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.3",

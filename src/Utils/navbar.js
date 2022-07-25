@@ -4,6 +4,7 @@ import SignIn from "../Pages/SignIn";
 import SignUp from "../Components/SignUp";
 import Generic from "../Generic";
 import MyProducts from "../Pages/MyProducts";
+import UserSettings from "../Pages/UserSettings";
 
 export const navbar = [
   {
@@ -35,5 +36,10 @@ export const navbar = [
     id: 6,
     path: "/my-products",
     element: <MyProducts />,
+  },
+  {
+    id: 7,
+    path: "/user-settings",
+    element: <UserSettings />,
   },
 ];

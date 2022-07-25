@@ -4,22 +4,14 @@ import { ToastContainer, toast } from "react-toastify";
 import { addUser } from "../../Redux/User";
 import "react-toastify/dist/ReactToastify.css";
 import { Btn, Input } from "./style";
+import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const addingUser = useSelector((store) => store.users.addingUser);
-  const notifyGood = () =>
-    toast("✅ Succesfully add new user!", {
-      position: "top-right",
-      autoClose: 10000,
-      hideProgressBar: true,
-      closeOnClick: true,
-      pauseOnHover: false,
-      draggable: true,
-      progress: undefined,
-    });
-  const notifyWrong = () =>
-    toast("⛔️ Enything is wrong", {
+  const notify = (info) =>
+    toast(info, {
       position: "top-right",
       autoClose: 1000,
       hideProgressBar: true,
@@ -28,14 +20,34 @@ const SignUp = () => {
       draggable: true,
       progress: undefined,
     });
+
   const [userInfo, setUserInfo] = useState({
     username: "",
     email: "",
     password: "",
   });
   const onSubmit = () => {
-    dispatch(addUser(userInfo));
-    addingUser === true ? notifyGood() : notifyWrong();
+    if (
+      userInfo.username !== "" &&
+      userInfo.email !== "" &&
+      userInfo.password !== ""
+    ) {
+      dispatch(addUser(userInfo));
+
+      if (addingUser === true) {
+        notify("✅ Succesfully add new user!");
+        setUserInfo({
+          username: "",
+          email: "",
+          password: "",
+        });
+        navigate("/login");
+      } else {
+        notify("⛔️ Enything is wrong");
+      }
+    } else {
+      notify("⛔️ Please, enter all info");
+    }
   };
 
   return (
